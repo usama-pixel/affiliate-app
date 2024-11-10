@@ -1,27 +1,26 @@
-import Image from 'next/image';
 import React from 'react'
 
-type Props = {
-    title: string;
-    image_url: string;
-}
+type Props = {}
 
-function PostCard({ image_url, title }: Props) {
+function PostCard({}: Props) {
   return (
-    <div className="card bg-white shadow-lg rounded-lg overflow-hidden w-full">
-      <Image
-        src={image_url}
-        alt="Health"
-        className="w-full h-48 object-cover"
-        height={0}
-        width={0}
-        sizes='100vw'
-      />
-      <div className="p-4">
-        <span className="badge badge-primary">Health</span>
-        <h2 className="text-lg font-semibold mt-2">{title}</h2>
-        <p className="text-sm text-gray-500 mt-1">Mia Jonathan - April 6, 2017</p>
-      </div>
+    <div className="card bg-base-100 w-96 shadow-xl cursor-pointer">
+        <figure>
+            <img
+            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+            alt="Shoes" />
+        </figure>
+        <div className="card-body">
+            <h2 className="card-title">
+                Shoes!
+                <div className="badge badge-secondary">NEW</div>
+            </h2>
+            <p>If a dog chews shoes whose shoes does he choose?</p>
+            <div className="card-actions justify-end">
+                <div className="badge badge-outline">Fashion</div>
+                <div className="badge badge-outline">Products</div>
+            </div>
+        </div>
     </div>
   )
 }
