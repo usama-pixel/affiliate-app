@@ -4,8 +4,8 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white py-10">
-      <div className="container w-full mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-black text-white py-10 px-5">
+      <div className="container w-fit grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Latest Posts */}
         <div>
           <h2 className="text-lg font-bold mb-4">Latest Posts</h2>
@@ -62,7 +62,6 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-
         {/* Instagram */}
         <div>
           <h2 className="text-lg font-bold mb-4">Instagram</h2>
@@ -101,7 +100,6 @@ export default function Footer() {
                 />
           </div>
         </div>
-
         {/* Categories */}
         <div>
           <h2 className="text-lg font-bold mb-4">Categories</h2>
@@ -118,7 +116,6 @@ export default function Footer() {
             <li><a href="#" className="block mb-2 hover:text-gray-400">Videos</a></li>
           </ul>
         </div>
-
         {/* About Us */}
       </div>
       <div className='ml-auto mr-auto w-[400px]'>
@@ -136,7 +133,7 @@ export default function Footer() {
       </div>
       {/* Copyright */}
       <div className="text-center mt-8 text-gray-500">
-        &copy; Copyright - Newspaper by TagDiv
+        &copy; Copyright - Newspaper by Usama
       </div>
     </footer>
   );

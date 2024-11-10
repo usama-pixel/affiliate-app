@@ -18,8 +18,9 @@ async function Home({}: Props) {
     const {data: popularPost} = await axiosInstance.get('/blog-posts?is_popular=true')
     console.log({mainPost})
   return (
+    <>
+    <Header />
     <div className='px-6'>
-      <Header />
         {/* <h1>Home</h1> */}
       <Hero featured={featured} />
       <div className='grid grid-cols-8 gap-10'>
@@ -39,8 +40,9 @@ async function Home({}: Props) {
       <Ad728
         image_url={'https://static1.cbrimages.com/wordpress/wp-content/uploads/2024/01/split-images-of-six-path-of-pain.jpg'}
       />
-      <Footer />
     </div>
+    <Footer />
+    </>
   )
 }
 
