@@ -9,7 +9,7 @@ type Props = {
 
 function FeaturedPostCard({ image_url, title, written_by }: Props) {
   return (
-    <div className="card bg-white shadow-lg rounded-lg overflow-hidden w-full">
+    <div className="card bg-white shadow-lg rounded-lg overflow-hidden w-full cursor-pointer">
       <Image
         src={image_url}
         alt="Health"

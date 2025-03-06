@@ -8,10 +8,10 @@ type Props = {
 function Button({ title, handleClick }: Props) {
   return (
     <a
-        className='px-3 py-2 bg-green-500'
-        onClick={handleClick}
+      className='px-3 py-2 bg-green-500 cursor-pointer'
+      onClick={handleClick}
     >
-        {title}
+      {title}
     </a>
   )
 }

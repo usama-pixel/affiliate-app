@@ -1,65 +1,79 @@
 'use client';
-import React, { useRef } from 'react';
-import type { FormProps } from 'antd';
-import { Button, Checkbox, Form, Input } from 'antd';
+import Link from 'next/link';
+import React, { SyntheticEvent, useState } from 'react'
+import axiosInstance from '../../utils/axios';
+import { useRouter } from 'next/navigation';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { toast, ToastContainer } from 'react-toastify';
+import { AxiosError } from 'axios';
 
-type FieldType = {
-  email?: string;
-  password?: string;
-  remember?: string;
-};
+type Props = {}
 
-const onFinish: FormProps['onFinish'] = (values) => {
-  console.log('Success:', values);
-};
-
-const onFinishFailed: FormProps['onFinishFailed'] = (errorInfo) => {
-  console.log('Failed:', errorInfo);
-};
-
-const Login: React.FC = () => {
-  const usernameInputRef = useRef<HTMLInputElement>(null);
-  const passwordInputRef = useRef<HTMLInputElement>(null);
-
+function Login({}: Props) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPass, setShowPass] = useState(false)
+  const router = useRouter()
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault()
+    axiosInstance.post('/auth/login', {
+      email,
+      password
+    }).then(({ data }) => {
+      if (data?.access_token && data?.user) {
+        localStorage.setItem('access_token', data.access_token)
+        localStorage.setItem('user', data.user)
+        router.push('/dashboard')
+      }
+    }).catch((err: AxiosError) => {
+      console.log(err)
+      toast(((err.response?.data) as any).message || err.message, {
+        theme: 'dark'
+      })
+    })
+  }
   return (
-    <Form
-      name="login"
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-    >
-      <Form.Item
-        label="Email"
-        name="email"
-        rules={[{ required: true, message: 'Please input your email!' }]}
-        className='text-white'
-      >
-        <Input ref={usernameInputRef} />
-      </Form.Item>
+    <div>
+      <h1 className=''>Login</h1>
+      <form onSubmit={handleSubmit} className='flex flex-col gap-3 w-[500px] mx-auto'>
+        <input
+          className='input'
+          placeholder='Email'
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          type='email'
+        />
+        <div className='relative w-full'>
+          <input
+            className='input w-full'
+            placeholder='Password'
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            type={`${showPass ? 'text': 'password'}`}
+          />
+          {
+            !showPass ?
+            <FaEye
+              className='absolute top-[25%] right-3'
+              size={24}
+              onClick={() => setShowPass(!showPass)}
+            /> :
+            <FaEyeSlash
+              className='absolute top-[25%] right-3'
+              size={24}
+              onClick={() => setShowPass(!showPass)}
+            />
+          }
+        </div>
+        <button className='btn'>Login</button>
+        <div className='flex'>
+          <p>Dont have an account? </p>
+          <Link href={'/signup'}>&nbsp;Signup</Link>
+        </div>
+      </form>
+      <ToastContainer />
+    </div>
+  )
+}
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input.Password ref={passwordInputRef} />
-      </Form.Item>
-
-      <Form.Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
-  );
-};
-
-export default Login;
+export default Login

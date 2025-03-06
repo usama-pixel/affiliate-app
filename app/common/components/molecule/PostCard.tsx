@@ -1,18 +1,21 @@
 import React from 'react'
 
-type Props = {}
+type Props = {
+    image_url: string;
+    title: string;
+}
 
-function PostCard({}: Props) {
+function PostCard({ image_url, title }: Props) {
   return (
     <div className="card bg-base-100 w-96 shadow-xl cursor-pointer">
         <figure>
             <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+            src={image_url}
             alt="Shoes" />
         </figure>
         <div className="card-body">
             <h2 className="card-title">
-                Shoes!
+                {title}
                 <div className="badge badge-secondary">NEW</div>
             </h2>
             <p>If a dog chews shoes whose shoes does he choose?</p>
